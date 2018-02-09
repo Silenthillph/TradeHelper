@@ -8,11 +8,13 @@ import { routing } from './app.routing';
 import { AppComponent } from './components/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { TradesComponent } from './components/trades/trades.component';
+import { TradeService } from './service/trade.service'
+
 
 @NgModule({
     imports: [BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule],
     declarations: [AppComponent, TradesComponent, HomeComponent],
-    providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+    providers: [{ provide: APP_BASE_HREF, useValue: '/' }, TradeService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

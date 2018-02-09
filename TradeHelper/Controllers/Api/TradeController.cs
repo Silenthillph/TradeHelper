@@ -1,28 +1,46 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using EntityModel;
-using Repository;
+using System.Web.Mvc;
+using TradeHelper.Cqrs.Command.Interfaces;
+using TradeHelper.Cqrs.Query.Interfaces;
+using TradeHelper.Models.Commands;
+using TradeHelper.Models.DTO;
+using TradeHelper.Models.Queries;
+using TradeHelper.Models.QueryResults;
 
 namespace TradeHelper.Controllers.Api
 {
     public class TradeController: ApiController
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IQueryDispatcher _queryDispatcher;
+        private readonly ICommandDispatcher _commandDispatcher;
 
-        public TradeController(IUnitOfWork unitOfWork)
+        public TradeController(IQueryDispatcher dispatcher, ICommandDispatcher commandDispatcher)
         {
-            this.unitOfWork = unitOfWork;
+            this._queryDispatcher = dispatcher;
+            this._commandDispatcher = commandDispatcher;
         }
         
         [System.Web.Http.HttpGet]
-        public async Task<IEnumerable<string>> GetAllTrades()
+        public async Task<IEnumerable<TradeInfoModel>> GetAllTrades()
         {
-            var repo = this.unitOfWork.GetRepository<TradeInfo>();
-            var data = repo.GetAll();
-            
-            return data.Select(d => d.PairCode);
+            var queryResult = await this._queryDispatcher.Dispatch<CommonQuery, GetAllTradesQueryResult>(new CommonQuery());
+
+            return queryResult.Result;
+        }
+
+        [System.Web.Http.HttpDelete]
+        public async Task<HttpResponseMessage> RemoveTradeItems([FromUri] List<int> items)
+        {
+            var commandResult = await this._commandDispatcher.Dispatch(new RemoveTradeInfoCommand {ItemsToRemove = items});
+            if (commandResult.Success)
+            {
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return new HttpResponseMessage(HttpStatusCode.InternalServerError);
         }
     }
 }

@@ -32,6 +32,7 @@ namespace TradeHelper
         protected void Application_Start()
         {
             BootstrapContainer();
+            Mappings.MappingConfiguration.Configure();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

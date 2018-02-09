@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -164,14 +167,36 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\TradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Cqrs\CommandDispatcher.cs" />
+    <Compile Include="Cqrs\Command\AddOrUpdateTradeInfoCommandHandler.cs" />
+    <Compile Include="Cqrs\Command\Interfaces\ICommand.cs" />
+    <Compile Include="Cqrs\Command\Interfaces\ICommandDispatcher.cs" />
+    <Compile Include="Cqrs\Command\Interfaces\ICommandHandler.cs" />
+    <Compile Include="Cqrs\Command\RemoveTradeInfoCommandHandler.cs" />
+    <Compile Include="Cqrs\Query\Interfaces\IQuery.cs" />
+    <Compile Include="Cqrs\Query\Interfaces\IQueryDispatcher.cs" />
+    <Compile Include="Cqrs\Query\Interfaces\IQueryHandler.cs" />
+    <Compile Include="Cqrs\Query\Interfaces\IQueryResult.cs" />
+    <Compile Include="Cqrs\QueryDispatcher.cs" />
+    <Compile Include="Cqrs\Query\GetAllTradesQueryHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Infrastructure\WindsorApiDependencyResolver.cs" />
     <Compile Include="Infrastructure\WindsorApiDependencyScope.cs" />
     <Compile Include="Infrastructure\WindsorDependencyResolver.cs" />
     <Compile Include="Infrastructure\WindsorInstaller.cs" />
     <Compile Include="Infrastructure\WindsorWebApiControllerFactory.cs" />
+    <Compile Include="Mappings\Auto\EntityToTradeInfoModel.cs" />
+    <Compile Include="Mappings\Auto\TradeInfoModelToEntity.cs" />
+    <Compile Include="Mappings\MappingConfiguration.cs" />
+    <Compile Include="Models\Commands\AddOrUpdateTradeInfoCommand.cs" />
+    <Compile Include="Models\Commands\CommandResult.cs" />
+    <Compile Include="Models\Commands\RemoveTradeInfoCommand.cs" />
+    <Compile Include="Models\DTO\TradeInfoModel.cs" />
+    <Compile Include="Models\Queries\CommonQuery.cs" />
+    <Compile Include="Models\QueryResults\GetAllTradesQueryResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,9 +228,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\common\" />
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Cqrs\Strategy\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
@@ -237,12 +260,16 @@
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\common\enums.ts" />
     <TypeScriptCompile Include="app\components\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\components\home\home.component.ts" />
+    <TypeScriptCompile Include="app\model\tradeInfo.ts" />
     <TypeScriptCompile Include="app\components\trades\trades.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\service\modal.service.ts" />
+    <TypeScriptCompile Include="app\service\trade.service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

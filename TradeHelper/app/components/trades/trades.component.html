@@ -1,3 +1,72 @@
-﻿<div>
-    Trades yo
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Trades Management
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addTrade()">Add</button></div>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+            <div *ngIf='trades && trades.length==0' class="alert alert-info" role="alert">No record found!</div>
+            <table class='table table-striped' *ngIf='trades && trades.length'>
+                <thead>
+                <tr>
+                    <th>Pair </th>
+                    <th>Amount</th>
+                    <th>Buy</th>
+                    <th>Cell</th>
+                    <th>Profit</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let trade of trades">
+                    <td>{{ trade.PairCode}}</td>
+                    <td>{{ trade.Amount    }}</td>
+                    <td>{{ trade.BuyPrice  }}</td>
+                    <td>{{ trade.CellPrice }}</td>
+                    <td>{{ calculateProfit(trade) }}</td>
+                    <td>
+                        <button title="Edit" class="btn btn-primary" (click)="editTrade(trade)">Edit</button>
+                        <button title="Delete" class="btn btn-danger" (click)="deleteTrade(trade)">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+            </div>
+        </div>
+        <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{msg}}
+        </div>
+    </div>
 </div>
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(tradeForm)" [formGroup]="tradeForm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+        </modal-header>
+        <modal-body>
+
+            <div class="form-group">
+                <div>
+                    <span>Pair Code</span>
+                    <input type="text" class="form-control" placeholder="Pair Code" formControlName="PairCode">
+                </div>
+                <div>
+                    <span>Amount</span>
+                    <input type="text" class="form-control" placeholder="Amount" formControlName="Amount">
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="tradeForm.invalid" class="btn btn-primary">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

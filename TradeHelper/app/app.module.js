@@ -16,6 +16,7 @@ var app_routing_1 = require("./app.routing");
 var app_component_1 = require("./components/app.component");
 var home_component_1 = require("./components/home/home.component");
 var trades_component_1 = require("./components/trades/trades.component");
+var trade_service_1 = require("./service/trade.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -25,7 +26,7 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule, http_1.HttpModule, app_routing_1.routing, ng2_bs3_modal_1.Ng2Bs3ModalModule],
         declarations: [app_component_1.AppComponent, trades_component_1.TradesComponent, home_component_1.HomeComponent],
-        providers: [{ provide: common_1.APP_BASE_HREF, useValue: '/' }],
+        providers: [{ provide: common_1.APP_BASE_HREF, useValue: '/' }, trade_service_1.TradeService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

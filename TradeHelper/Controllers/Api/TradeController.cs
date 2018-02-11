@@ -32,6 +32,22 @@ namespace TradeHelper.Controllers.Api
             return queryResult.Result;
         }
 
+
+        
+        [System.Web.Http.HttpPost]
+        public async Task<HttpResponseMessage> AddOrUpdateTrade([FromBody]TradeInfoModel trade)
+        {
+            var commandResult = await this._commandDispatcher.Dispatch(new AddOrUpdateTradeInfoCommand
+                                                                     {
+                                                                         Model = trade
+                                                                     });
+            if (commandResult.Success)
+            {
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+        }
+
         [System.Web.Http.HttpDelete]
         public async Task<HttpResponseMessage> RemoveTradeItems([FromUri] List<int> items)
         {

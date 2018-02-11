@@ -37,7 +37,7 @@ namespace TradeHelper.Cqrs.Command
                 if (item == null)
                 {
                     item = AutoMapper.Mapper.Map<TradeInfo>(command.Model);
-                    var lastItemId = await this._repository.AsQueryable().Select(t => t.Id).MaxAsync();
+                    var lastItemId = await this._repository.AsQueryable().Select(t => t.Id).DefaultIfEmpty(0).MaxAsync();
                     item.Id = lastItemId + 1;
                     this._repository.Add(item);
                 }

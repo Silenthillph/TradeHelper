@@ -4,6 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/toPromise';
+import { ITradeInfo } from "../model/tradeInfo";
+
 
 @Injectable()
 export class TradeService {
@@ -11,6 +14,14 @@ export class TradeService {
 
     dynamicGet(url: string): Promise<any> {
         return this._http.get(url).toPromise();
+    }
+
+    addOrUpdateTrade(trade: ITradeInfo): Observable<any> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post('api/trade/addOrUpdateTrade', trade, options)
+            .map((response: Response) => <any>response.json())
+            .catch(this.handleError);
     }
 
     getAllTrades(): Observable<any> {

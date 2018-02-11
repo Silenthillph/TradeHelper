@@ -54,7 +54,7 @@ export class TradesComponent implements OnInit {
 
     addTrade(): void {
         this.setControlsState(true);
-        this.modalTitle = "Add New User";
+        this.modalTitle = "Add New Trade";
         this.modalBtnTitle = "Add";
         this.tradeForm.reset();
         this.modal.open();
@@ -80,7 +80,14 @@ export class TradesComponent implements OnInit {
     }
 
     onSubmit(formData: any) {
-        debugger;
+        let $this = this;
+        $this.isLoading = true;
+        this._tradeService.addOrUpdateTrade(formData.value)
+            .subscribe(result => {
+                $this.trades.push(formData.value);
+                $this.modal.dismiss();
+                $this.isLoading = true;
+            },error => { console.log(error); });
     }
 
     setControlsState(isEnable: boolean) {

@@ -68,7 +68,14 @@ var TradesComponent = (function () {
         }
     };
     TradesComponent.prototype.onSubmit = function (formData) {
-        debugger;
+        var $this = this;
+        $this.isLoading = true;
+        this._tradeService.addOrUpdateTrade(formData.value)
+            .subscribe(function (result) {
+            $this.trades.push(formData.value);
+            $this.modal.dismiss();
+            $this.isLoading = true;
+        }, function (error) { console.log(error); });
     };
     TradesComponent.prototype.setControlsState = function (isEnable) {
         isEnable ? this.tradeForm.enable() : this.tradeForm.disable();

@@ -15,12 +15,20 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
+require("rxjs/add/operator/toPromise");
 var TradeService = (function () {
     function TradeService(_http) {
         this._http = _http;
     }
     TradeService.prototype.dynamicGet = function (url) {
         return this._http.get(url).toPromise();
+    };
+    TradeService.prototype.addOrUpdateTrade = function (trade) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this._http.post('api/trade/addOrUpdateTrade', trade, options)
+            .map(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     TradeService.prototype.getAllTrades = function () {
         return this._http.get('api/trade/getalltrades')

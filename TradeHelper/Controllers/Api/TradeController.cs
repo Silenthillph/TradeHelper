@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace TradeHelper.Controllers.Api
         }
 
         [System.Web.Http.HttpDelete]
-        public async Task<HttpResponseMessage> RemoveTradeItems([FromUri] List<int> items)
+        public async Task<HttpResponseMessage> RemoveTradeItems([FromUri] List<Guid> items)
         {
             var commandResult = await this._commandDispatcher.Dispatch(new RemoveTradeInfoCommand {ItemsToRemove = items});
             if (commandResult.Success)

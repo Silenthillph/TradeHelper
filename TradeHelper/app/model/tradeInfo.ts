@@ -1,7 +1,7 @@
 ﻿import { Enums } from "../common/enums" 
 
 export interface ITradeInfo {
-    Id: number;
+    Id: string;
     PairCode: string;
     Amount: number;
     BuyPrice: number;

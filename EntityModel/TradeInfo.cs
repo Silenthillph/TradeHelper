@@ -14,7 +14,7 @@ namespace EntityModel
     
     public partial class TradeInfo
     {
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string PairCode { get; set; }
         public decimal Amount { get; set; }
         public Nullable<decimal> BuyPrice { get; set; }

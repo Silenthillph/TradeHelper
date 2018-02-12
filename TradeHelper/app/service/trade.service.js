@@ -26,14 +26,10 @@ var TradeService = (function () {
     TradeService.prototype.addOrUpdateTrade = function (trade) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('api/trade/addOrUpdateTrade', trade, options)
-            .map(function (response) { return response.json(); })
-            .catch(this.handleError);
+        return this._http.post('api/trade/addOrUpdateTrade', trade, options).toPromise();
     };
     TradeService.prototype.getAllTrades = function () {
-        return this._http.get('api/trade/getalltrades')
-            .map(function (response) { return response.json(); })
-            .catch(this.handleError);
+        return this._http.get('api/trade/getalltrades').toPromise();
     };
     TradeService.prototype.removeTrade = function (items) {
         return this._http.delete('api/trade/RemoveTradeItems?items=' + items).toPromise();

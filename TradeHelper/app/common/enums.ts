@@ -7,4 +7,10 @@
         Open = 1,
         Closed = 2
     }
+
+    export enum CrudOperation {
+        Create = 1,
+        Update = 2,
+        Delete = 3
+    }
 }

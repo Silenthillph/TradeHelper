@@ -16,25 +16,21 @@ export class TradeService {
         return this._http.get(url).toPromise();
     }
 
-    addOrUpdateTrade(trade: ITradeInfo): Observable<any> {
+    addOrUpdateTrade(trade: ITradeInfo): Promise<any> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('api/trade/addOrUpdateTrade', trade, options)
-            .map((response: Response) => <any>response.json())
-            .catch(this.handleError);
+        return this._http.post('api/trade/addOrUpdateTrade', trade, options).toPromise();
     }
 
-    getAllTrades(): Observable<any> {
-        return this._http.get('api/trade/getalltrades')
-            .map((response: Response) => <any>response.json())
-            .catch(this.handleError);
+    getAllTrades(): Promise<any> {
+        return this._http.get('api/trade/getalltrades').toPromise();
     }
 
     removeTrade(items: Array<number>): Promise<any> {
         return this._http.delete('api/trade/RemoveTradeItems?items=' + items).toPromise();
     }
 
-    private handleError(error: any) {
+    handleError(error: any) {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg);

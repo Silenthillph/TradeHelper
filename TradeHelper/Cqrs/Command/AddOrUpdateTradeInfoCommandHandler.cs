@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using EntityModel;
 using Repository;
 using TradeHelper.Cqrs.Command.Interfaces;
@@ -37,14 +33,11 @@ namespace TradeHelper.Cqrs.Command
                 if (item == null)
                 {
                     item = AutoMapper.Mapper.Map<TradeInfo>(command.Model);
-                    var lastItemId = await this._repository.AsQueryable().Select(t => t.Id).DefaultIfEmpty(0).MaxAsync();
-                    item.Id = lastItemId + 1;
                     this._repository.Add(item);
                 }
                 else
                 {
                     item = AutoMapper.Mapper.Map<TradeInfo>(command.Model);
-                    this._repository.Update(item);
                 }
 
                 await this._unitOfWork.SaveAsync();

@@ -1,0 +1,26 @@
+﻿[
+  {
+    "outputFile": "Content/styles/bundle.css",
+    "inputFile": "Content/styles/bundle.scss"
+  },
+  {
+    "outputFile": "Content/styles/sass/variables.css",
+    "inputFile": "Content/styles/sass/variables.scss"
+  },
+  {
+    "outputFile": "Content/styles/sass/table.css",
+    "inputFile": "Content/styles/sass/table.scss"
+  },
+  {
+    "outputFile": "Content/styles/sass/mixins.css",
+    "inputFile": "Content/styles/sass/mixins.scss"
+  },
+  {
+    "outputFile": "Content/styles/sass/helpers.css",
+    "inputFile": "Content/styles/sass/helpers.scss"
+  },
+  {
+    "outputFile": "Content/styles/sass/buttons.css",
+    "inputFile": "Content/styles/sass/buttons.scss"
+  }
+]

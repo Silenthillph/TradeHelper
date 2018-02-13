@@ -18,9 +18,7 @@ export class TradesComponent implements OnInit {
     modalTitle: string;
     modalBtnTitle: string;
     crudActionType: Enums.CrudOperation;
-    msg: string;
     trades: Array<ITradeInfo>;
-    isLoading: boolean;
     
     constructor(private fb: FormBuilder, private _tradeService: TradeService) { }
 
@@ -41,11 +39,9 @@ export class TradesComponent implements OnInit {
 
     load(): void {   
         let $this = this;
-        $this.isLoading = true;
         this._tradeService.getAllTrades()
             .then(trades => {
                 $this.trades = trades.json() || {};
-                $this.isLoading = false;
             },
             error => { console.log(error); });
     }
@@ -89,7 +85,6 @@ export class TradesComponent implements OnInit {
 
     onSubmit(formData: any) {
         let $this = this;
-        $this.isLoading = true;
         switch (this.crudActionType) {
             case Enums.CrudOperation.Create:
                 formData.value.Id = Utils.getNewGUID();
@@ -97,7 +92,6 @@ export class TradesComponent implements OnInit {
                     .then(() => {
                         $this.trades.push(formData.value);
                         $this.modal.dismiss();
-                        $this.isLoading = true;
                     }, error => { console.log(error); });
                 break;
             case Enums.CrudOperation.Update:
@@ -107,7 +101,6 @@ export class TradesComponent implements OnInit {
                         if (itemToUpdateIndex !== -1) {
                             $this.trades[itemToUpdateIndex] = formData.value;
                             $this.modal.dismiss();
-                            $this.isLoading = false;
                         } else {
                             this.load();
                         }
@@ -121,7 +114,6 @@ export class TradesComponent implements OnInit {
                             if (itemToDeleteIndex !== -1) {
                                 $this.trades.splice(itemToDeleteIndex, 1);
                             }
-                            $this.isLoading = false;
                             $this.modal.dismiss();
                         },
                         error => { console.log(error); });

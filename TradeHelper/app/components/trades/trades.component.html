@@ -1,47 +1,42 @@
-﻿<div class='panel panel-primary'>
-    <div class='panel-heading'>
-        Trades Management
-    </div>
-    <div class='panel-body'>
-        <div class='table-responsive'>
-            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addTrade()">Add</button></div>
-            <div class="alert alert-info" role="alert" *ngIf="isLoading"><img src="../../app/images/loading.gif" width="32" height="32" /> Loading...</div>
-            <div *ngIf='trades && trades.length==0' class="alert alert-info" role="alert">No record found!</div>
-            <table class='table table-striped' *ngIf='trades && trades.length'>
-                <thead>
-                <tr>
-                    <th>Pair</th>
-                    <th>Amount</th>
-                    <th>Buy</th>
-                    <th>Cell</th>
-                    <th>Profit</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let trade of trades">
-                    <td>{{ trade.PairCode}}</td>
-                    <td>{{ trade.Amount    }}</td>
-                    <td>{{ trade.BuyPrice  }}</td>
-                    <td>{{ trade.CellPrice }}</td>
-                    <td>{{ calculateProfit(trade) }}</td>
-                    <td>
-                        <button title="Edit" class="btn btn-primary" (click)="editTrade(trade)">Edit</button>
-                        <button title="Delete" class="btn btn-danger" (click)="deleteTrade(trade)">Delete</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div>
-            </div>
+﻿<div>
+    <div class='table-responsive'>
+        <div class="pb-10">
+            <button class="button-3d green" (click)="addTrade()">Add</button>
         </div>
-        <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            {{msg}}
+        <table class='table table-dark' *ngIf='trades && trades.length'>
+            <thead>
+            <tr>
+                <th>Pair</th>
+                <th>Amount</th>
+                <th>Buy</th>
+                <th>Cell</th>
+                <th>Profit</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let trade of trades">
+                <td>{{ trade.PairCode}}</td>
+                <td>{{ trade.Amount    }}</td>
+                <td>{{ trade.BuyPrice  }}</td>
+                <td>{{ trade.CellPrice }}</td>
+                <td>{{ calculateProfit(trade) }}</td>
+                <td>
+                    <button title="Edit" class="button-3d green" (click)="editTrade(trade)">Edit</button>
+                    <button title="Delete" class="button-3d red" (click)="deleteTrade(trade)">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
         </div>
     </div>
+    <!--<div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{msg}}
+    </div>-->
 </div>
 
 <modal #modal>
@@ -49,8 +44,8 @@
         <modal-header [show-close]="true">
             <h4 class="modal-title">{{modalTitle}}</h4>
         </modal-header>
-        <div *ngIf="tradeForm.disabled">
-            <p>Are you sure?</p>
+        <div class="pad-top-15 ta-center" *ngIf="tradeForm.disabled">
+            <b>Are you sure?</b>
         </div>
         <modal-body *ngIf="tradeForm.enabled">
             <div class="form-group">
@@ -87,9 +82,9 @@
             </div>
         </modal-body>
         <modal-footer>
-            <div>
-                <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
-                <button type="submit" [disabled]="tradeForm.invalid" class="btn btn-primary">{{modalBtnTitle}}</button>
+            <div class="aligncenter">
+                <button type="submit" [disabled]="tradeForm.invalid" class="button-3d green">{{modalBtnTitle}}</button>
+                <a class="button-3d" (click)="modal.dismiss()">Cancel</a>
             </div>
         </modal-footer>
     </form>

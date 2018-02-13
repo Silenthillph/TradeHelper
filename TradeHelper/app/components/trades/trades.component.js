@@ -36,11 +36,9 @@ var TradesComponent = (function () {
     };
     TradesComponent.prototype.load = function () {
         var $this = this;
-        $this.isLoading = true;
         this._tradeService.getAllTrades()
             .then(function (trades) {
             $this.trades = trades.json() || {};
-            $this.isLoading = false;
         }, function (error) { console.log(error); });
     };
     TradesComponent.prototype.calculateProfit = function (trade) {
@@ -79,7 +77,6 @@ var TradesComponent = (function () {
     TradesComponent.prototype.onSubmit = function (formData) {
         var _this = this;
         var $this = this;
-        $this.isLoading = true;
         switch (this.crudActionType) {
             case enums_1.Enums.CrudOperation.Create:
                 formData.value.Id = utils_1.Utils.getNewGUID();
@@ -87,7 +84,6 @@ var TradesComponent = (function () {
                     .then(function () {
                     $this.trades.push(formData.value);
                     $this.modal.dismiss();
-                    $this.isLoading = true;
                 }, function (error) { console.log(error); });
                 break;
             case enums_1.Enums.CrudOperation.Update:
@@ -97,7 +93,6 @@ var TradesComponent = (function () {
                     if (itemToUpdateIndex !== -1) {
                         $this.trades[itemToUpdateIndex] = formData.value;
                         $this.modal.dismiss();
-                        $this.isLoading = false;
                     }
                     else {
                         _this.load();
@@ -111,7 +106,6 @@ var TradesComponent = (function () {
                         if (itemToDeleteIndex !== -1) {
                             $this.trades.splice(itemToDeleteIndex, 1);
                         }
-                        $this.isLoading = false;
                         $this.modal.dismiss();
                     }, function (error) { console.log(error); });
                 }

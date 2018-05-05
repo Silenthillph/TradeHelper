@@ -1,0 +1,10 @@
+﻿<div>
+    <div class="control-container">
+        <ul>
+            <li *ngFor="let value of currencyOptions" (click)="select(value)">{{value.label}}</li>
+        </ul>
+    </div>
+    <div id="chart-container"></div>
+</div>
+
+

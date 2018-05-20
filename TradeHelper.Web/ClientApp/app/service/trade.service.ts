@@ -1,14 +1,7 @@
-﻿import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/toPromise';
+﻿import { Component, Inject } from '@angular/core';
+import { Http } from '@angular/http';
 import { ITradeInfo } from "../model/tradeInfo";
 
-
-@Injectable()
 export class TradeService {
     constructor(private _http: Http) { }
 
@@ -18,8 +11,7 @@ export class TradeService {
 
     addOrUpdateTrade(trade: ITradeInfo): Promise<any> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this._http.post('api/trade/addOrUpdateTrade', trade, options).toPromise();
+        return this._http.post('api/trade/addOrUpdateTrade', trade).toPromise();
     }
 
     getAllTrades(): Promise<any> {
@@ -34,6 +26,5 @@ export class TradeService {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         console.error(errMsg);
-        return Observable.throw(errMsg);
     }
 }

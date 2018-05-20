@@ -1,7 +1,7 @@
 ﻿using System;
-using TradeHelper.Web.Helpers;
+using TradeHelper.BLL.Common;
 
-namespace TradeHelper.Web.Models.DTO
+namespace TradeHelper.Web.Models
 {
     public class TradeInfoModel
     {

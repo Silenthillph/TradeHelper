@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using TradeHelper.BLL.Common;
 using TradeHelper.EntityModel.Entities;
-using TradeHelper.Web.Helpers;
-using TradeHelper.Web.Models.DTO;
+using TradeHelper.Web.Models;
 
 namespace TradeHelper.Web.Mappings.Auto
 {

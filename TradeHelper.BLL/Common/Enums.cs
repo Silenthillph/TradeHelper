@@ -1,4 +1,4 @@
-﻿namespace TradeHelper.Web.Helpers
+﻿namespace TradeHelper.BLL.Common
 {
     public enum PositionType
     {

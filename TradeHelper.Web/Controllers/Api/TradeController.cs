@@ -4,44 +4,38 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TradeHelper.Web.Cqrs.Command.Interfaces;
-using TradeHelper.Web.Cqrs.Query.Interfaces;
-using TradeHelper.Web.Models.Commands;
-using TradeHelper.Web.Models.DTO;
-using TradeHelper.Web.Models.Queries;
-using TradeHelper.Web.Models.QueryResults;
+using TradeHelper.BLL.Managers;
+using TradeHelper.EntityModel.Entities;
+using TradeHelper.Web.Models;
 
-namespace TradeHelper.Controllers.Api
+namespace TradeHelper.Web.Controllers.Api
 {
+    [Route("api/[controller]")]
     public class TradeController: Controller
     {
-        private readonly IQueryDispatcher _queryDispatcher;
-        private readonly ICommandDispatcher _commandDispatcher;
 
-        public TradeController(IQueryDispatcher dispatcher, ICommandDispatcher commandDispatcher)
+        private readonly ITradeManager _tradeManager;
+
+        public TradeController(ITradeManager tradeManager)
         {
-            this._queryDispatcher = dispatcher;
-            this._commandDispatcher = commandDispatcher;
+            _tradeManager = tradeManager;
         }
-        
+
         [HttpGet]
+        [Route("")]
         public async Task<IEnumerable<TradeInfoModel>> GetAllTrades()
         {
-            var queryResult = await this._queryDispatcher.Dispatch<CommonQuery, GetAllTradesQueryResult>(new CommonQuery());
-
-            return queryResult.Result;
+            IEnumerable<TradeInfo> trades = await this._tradeManager.GetAllTrades();
+            IEnumerable<TradeInfoModel> response = AutoMapper.Mapper.Map<IEnumerable<TradeInfoModel>>(trades);
+            return response;
         }
-
-
-        
+       
         [HttpPost]
         public async Task<HttpResponseMessage> AddOrUpdateTrade([FromBody]TradeInfoModel trade)
         {
-            var commandResult = await this._commandDispatcher.Dispatch(new AddOrUpdateTradeInfoCommand
-                                                                     {
-                                                                         Model = trade
-                                                                     });
-            if (commandResult.Success)
+
+            TradeInfo tradeInfo = await _tradeManager.AddOrUpdate(AutoMapper.Mapper.Map<TradeInfo>(trade));
+            if (tradeInfo != null)
             {
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
@@ -51,8 +45,8 @@ namespace TradeHelper.Controllers.Api
         [HttpDelete]
         public async Task<HttpResponseMessage> RemoveTradeItems([FromRoute] List<Guid> items)
         {
-            var commandResult = await this._commandDispatcher.Dispatch(new RemoveTradeInfoCommand {ItemsToRemove = items});
-            if (commandResult.Success)
+            bool success = await _tradeManager.Remove(items);
+            if (success)
             {
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }

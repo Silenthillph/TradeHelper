@@ -27,7 +27,6 @@
     <Content Remove="ClientApp\app\common\utils.ts" />
     <Content Remove="ClientApp\app\components\trades\trades.component.ts" />
     <Content Remove="ClientApp\app\model\tradeInfo.ts" />
-    <Content Remove="ClientApp\app\service\modal.service.ts" />
     <Content Remove="ClientApp\app\service\trade.service.ts" />
   </ItemGroup>
 
@@ -41,22 +40,18 @@
     <Content Include="ClientApp\app\components\chart\chart.component.js.map" />
     <Content Include="ClientApp\app\components\chart\chart.component.ts" />
     <Content Include="ClientApp\app\components\trades\trades.component.html" />
-    <Content Include="ClientApp\app\components\trades\trades.component.js" />
-    <Content Include="ClientApp\app\components\trades\trades.component.js.map" />
     <Content Include="ClientApp\app\model\tradeInfo.js" />
     <Content Include="ClientApp\app\model\tradeInfo.js.map" />
-    <Content Include="ClientApp\app\service\modal.service.js" />
-    <Content Include="ClientApp\app\service\modal.service.js.map" />
     <Content Include="ClientApp\app\service\trade.service.js" />
     <Content Include="ClientApp\app\service\trade.service.js.map" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TradeHelper.BLL\TradeHelper.BLL.csproj" />
     <ProjectReference Include="..\TradeHelper.EntityModel\TradeHelper.EntityModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cqrs\Strategy\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -65,7 +60,6 @@
     <TypeScriptCompile Include="ClientApp\app\common\utils.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\trades\trades.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\model\tradeInfo.ts" />
-    <TypeScriptCompile Include="ClientApp\app\service\modal.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\service\trade.service.ts" />
   </ItemGroup>
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TradeHelper.BLL.Configuration;
 using TradeHelper.Web.Core.Configurations;
 using TradeHelper.Web.Mappings;
 
@@ -26,6 +27,7 @@ namespace TradeHelper.Web
             services.AddTradeHelperDbContext(connectionString);
             services.AddUnitOfWork();
             services.AddScoped();
+            services.AddBll();
 
             MappingConfiguration.Configure();
         }

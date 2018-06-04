@@ -1,7 +1,7 @@
 ﻿using System;
 using TradeHelper.BLL.Common;
 
-namespace TradeHelper.Web.Models
+namespace TradeHelper.WebApi.Models
 {
     public class TradeInfoModel
     {

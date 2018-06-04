@@ -1,4 +1,4 @@
-﻿namespace TradeHelper.Web.Core.Configurations
+﻿namespace TradeHelper.WebApi.Core.Configurations
 {
     public interface IContextConfiguration
     {

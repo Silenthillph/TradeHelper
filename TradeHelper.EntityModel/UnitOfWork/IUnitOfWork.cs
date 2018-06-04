@@ -12,6 +12,6 @@ namespace TradeHelper.EntityModel.UnitOfWork
         Task SaveAsync();
         IEnumerable<TRecordSet> Exec<TRecordSet>(string name, params object[] parameters) where TRecordSet : class;
         T GetContext<T>() where T : class;
-        void Dispose();
+        new void Dispose();
     }
 }

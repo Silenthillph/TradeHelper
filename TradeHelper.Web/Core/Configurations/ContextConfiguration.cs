@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TradeHelper.EntityModel;
 
-namespace TradeHelper.Web.Core.Configurations
+namespace TradeHelper.WebApi.Core.Configurations
 {
     public class ContextConfiguration: IContextConfiguration
     {

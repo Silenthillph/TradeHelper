@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using TradeHelper.EntityModel;
 using TradeHelper.EntityModel.UnitOfWork;
 
-namespace TradeHelper.Web.Core.Configurations
+namespace TradeHelper.WebApi.Core.Configurations
 {
     public static class ScopeConfiguration
     {

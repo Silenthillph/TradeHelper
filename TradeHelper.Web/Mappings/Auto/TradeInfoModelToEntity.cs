@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using TradeHelper.EntityModel.Entities;
-using TradeHelper.Web.Models;
+using TradeHelper.WebApi.Models;
 
-namespace TradeHelper.Web.Mappings.Auto
+namespace TradeHelper.WebApi.Mappings.Auto
 {
     public class TradeInfoModelToEntity: Profile
     {

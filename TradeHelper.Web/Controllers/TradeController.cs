@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TradeHelper.BLL.Managers;
 using TradeHelper.EntityModel.Entities;
-using TradeHelper.Web.Models;
+using TradeHelper.WebApi.Models;
 
 namespace TradeHelper.WebApi.Controllers
 {

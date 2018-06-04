@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TradeHelper.BLL.Configuration;
-using TradeHelper.Web.Core.Configurations;
-using TradeHelper.Web.Mappings;
+using TradeHelper.WebApi.Core.Configurations;
+using TradeHelper.WebApi.Mappings;
 
-namespace TradeHelper.Web
+namespace TradeHelper.WebApi
 {
     public class Startup
     {

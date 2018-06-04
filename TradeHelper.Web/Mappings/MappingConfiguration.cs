@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using TradeHelper.Web.Mappings.Auto;
+using TradeHelper.WebApi.Mappings.Auto;
 
-namespace TradeHelper.Web.Mappings
+namespace TradeHelper.WebApi.Mappings
 {
     public static class MappingConfiguration
     {

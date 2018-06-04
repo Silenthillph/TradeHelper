@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeHelper.EntityModel", "TradeHelper.EntityModel\TradeHelper.EntityModel.csproj", "{8C16E14E-3EDB-4BAF-B6C7-C3BC8194ACCA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeHelper.Web", "TradeHelper.Web\TradeHelper.Web.csproj", "{BB454B00-DC3A-462D-B334-CB2F56E1694D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeHelper.WebApi", "TradeHelper.Web\TradeHelper.WebApi.csproj", "{BB454B00-DC3A-462D-B334-CB2F56E1694D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeHelper.BLL", "TradeHelper.BLL\TradeHelper.BLL.csproj", "{90B16673-3056-4AC0-878A-1676422F37C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeHelper.BLL", "TradeHelper.BLL\TradeHelper.BLL.csproj", "{90B16673-3056-4AC0-878A-1676422F37C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

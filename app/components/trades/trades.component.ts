@@ -10,27 +10,16 @@ import { Utils } from "../../common/utils"
 })
 
 export class TradesComponent implements OnInit {
-    tradeForm: FormGroup;
+
     modalTitle: string;
     modalBtnTitle: string;
     crudActionType: Enums.CrudOperation;
     trades: Array<ITradeInfo>;
     
-    constructor(private fb: FormBuilder, private _tradeService: TradeService, private modalService: NgbModal) { }
+    constructor(private _tradeService: TradeService, private modalService: NgbModal) { }
 
     ngOnInit(): void {
-        this.tradeForm = this.fb.group({
-            Id: [''],
-            PairCode: ['', Validators.required],
-            Amount: ['', Validators.required],
-            BuyPrice: [''],
-            CellPrice: [''],
-            StartDate: [''],
-            CloseDate: [''],
-            Status: ['', Validators.required],
-            Type: ['', Validators.required]
-        });
-        this.load();
+       this.load();
     }
 
     load(): void {   

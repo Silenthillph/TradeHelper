@@ -8,7 +8,7 @@ using TradeHelper.BLL.Managers;
 using TradeHelper.EntityModel.Entities;
 using TradeHelper.Web.Models;
 
-namespace TradeHelper.Web.Controllers.Api
+namespace TradeHelper.WebApi.Controllers
 {
     [Route("api/[controller]")]
     public class TradeController: Controller

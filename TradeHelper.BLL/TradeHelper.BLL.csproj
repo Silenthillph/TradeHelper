@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TradeHelper.EntityModel\TradeHelper.EntityModel.csproj" />
+    <ProjectReference Include="..\TradeHelper.Services\TradeHelper.Services.csproj" />
   </ItemGroup>
 
 </Project>

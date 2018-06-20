@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeHelper.WebApi", "Trade
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeHelper.BLL", "TradeHelper.BLL\TradeHelper.BLL.csproj", "{90B16673-3056-4AC0-878A-1676422F37C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeHelper.Services", "TradeHelper.Services\TradeHelper.Services.csproj", "{D4A7D39A-70FD-425F-B0C2-7FEC575A0776}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{90B16673-3056-4AC0-878A-1676422F37C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90B16673-3056-4AC0-878A-1676422F37C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90B16673-3056-4AC0-878A-1676422F37C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A7D39A-70FD-425F-B0C2-7FEC575A0776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A7D39A-70FD-425F-B0C2-7FEC575A0776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A7D39A-70FD-425F-B0C2-7FEC575A0776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A7D39A-70FD-425F-B0C2-7FEC575A0776}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,11 @@
 ﻿namespace TradeHelper.BLL.Common
 {
+    public enum ExchangeStatus
+    {
+        Operative,
+        Maintenance
+    }
+
     public enum PositionType
     {
         Long = 1,

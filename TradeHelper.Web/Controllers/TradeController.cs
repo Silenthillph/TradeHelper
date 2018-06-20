@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TradeHelper.BLL.Managers;
+using TradeHelper.BLL.Managers.Interfaces;
 using TradeHelper.EntityModel.Entities;
 using TradeHelper.WebApi.Models;
 

@@ -1,10 +1,10 @@
 ﻿import { Component, Inject } from '@angular/core';
-import { Http } from '@angular/http';
-import { ITradeInfo } from "../model/tradeInfo";
+import { HttpClient } from "@angular/common/http";
+import { ITradeInfo } from '../models/tradeInfo';
 
 export class TradeService {
-    constructor(private _http: Http) { }
-
+    constructor(private _http: HttpClient) { }
+    
     dynamicGet(url: string): Promise<any> {
         return this._http.get(url).toPromise();
     }

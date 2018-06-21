@@ -9,8 +9,8 @@ namespace TradeHelper.WebApi.Mappings.Auto
         public TradeInfoModelToEntity()
         {
             this.CreateMap<TradeInfoModel, TradeInfo>()
-                .ForMember(e => e.StatusId, src => src.MapFrom(s => (int)s.Status))
-                .ForMember(e => e.PositionId, src => src.MapFrom(s => (int)s.Type));
+                .ForMember(e => e.Status, src => src.MapFrom(s => (int)s.Status))
+                .ForMember(e => e.PositionType, src => src.MapFrom(s => (int)s.Type));
         }
     }
 }

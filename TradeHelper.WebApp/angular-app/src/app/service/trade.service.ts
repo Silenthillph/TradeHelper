@@ -1,6 +1,10 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ITradeInfo } from '../models/tradeInfo';
+
+@Injectable({
+    providedIn: 'root',
+})
 
 export class TradeService {
     constructor(private _http: HttpClient) { }

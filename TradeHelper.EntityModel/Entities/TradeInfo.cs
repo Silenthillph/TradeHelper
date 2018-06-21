@@ -14,7 +14,7 @@ namespace TradeHelper.EntityModel.Entities
         public Nullable<decimal> CellPrice { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> CloseDate { get; set; }
-        public int StatusId { get; set; }
-        public int PositionId { get; set; }
+        public int Status { get; set; }
+        public int PositionType { get; set; }
     }
 }

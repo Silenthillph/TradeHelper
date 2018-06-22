@@ -1,4 +1,4 @@
-﻿<!-- <div>
+﻿<div>
     <div class='table-responsive'>
         <div class="pb-10">
             <button class="button-3d green" (click)="addTrade(modal)">Add</button>
@@ -34,52 +34,7 @@
 </div>
 
 <ng-template #modal>
-    <form novalidate (ngSubmit)="onSubmit(tradeForm)" [formGroup]="tradeForm">
-        <modal-header [show-close]="true">
-            <h4 class="modal-title">{{modalTitle}}</h4>
-        </modal-header>
-        <div class="pad-top-15 ta-center" *ngIf="tradeForm.disabled">
-            <b>Are you sure?</b>
-        </div>
-        <modal-body *ngIf="tradeForm.enabled">
-            <div class="form-group">
-                <div>
-                    <span>Pair Code</span>
-                    <input type="text" class="form-control" placeholder="Pair Code" formControlName="PairCode">
-                </div>
-                <div>
-                    <span>Amount</span>
-                    <input type="text" class="form-control" placeholder="Amount" formControlName="Amount">
-                </div>
-                <div>
-                    <span>Buy Price</span>
-                    <input type="text" class="form-control" placeholder="Buy Price" formControlName="BuyPrice">
-                </div>
-                <div>
-                    <span>Cell Price</span>
-                    <input type="text" class="form-control" placeholder="Cell Price" formControlName="CellPrice">
-                </div>
-                <div>
-                    <span>Position Type</span>
-                    <select type="option" class="form-control" placeholder="Position Type" formControlName="Type">
-                        <option value="1">Long</option>
-                        <option value="2">Short</option>
-                    </select>
-                </div>
-                <div>
-                    <span>Status</span>
-                    <select type="option" class="form-control" placeholder="Position Type" formControlName="Status">
-                        <option value="1">Open</option>
-                        <option value="2">Closed</option>
-                    </select>
-                </div>
-            </div>
-        </modal-body>
-        <modal-footer>
-            <div class="aligncenter">
-                <button type="submit" [disabled]="tradeForm.invalid" class="button-3d green">{{modalBtnTitle}}</button>
-                <a class="button-3d" (click)="dismiss()">Cancel</a>
-            </div>
-        </modal-footer>
-    </form>
-</ng-template> -->
+    <div class="mc-wrapper">
+        <h1>Yo bitches from modal</h1>
+    </div>
+</ng-template>

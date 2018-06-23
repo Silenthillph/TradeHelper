@@ -23,7 +23,7 @@ namespace TradeHelper.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("")]
+        [Route("getalltrades")]
         public async Task<IEnumerable<TradeInfoModel>> GetAllTrades()
         {
             IEnumerable<TradeInfo> trades = await this._tradeManager.GetAllTrades();

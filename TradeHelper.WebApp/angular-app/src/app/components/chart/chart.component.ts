@@ -4,7 +4,7 @@ import { TradeService } from '../../service/trade.service';
 declare const TradingView: any;
 
 @Component({
-    selector: "my-app",
+    selector: "app-tradingview-chart",
     templateUrl: "app/components/chart/chart.component.html"
 })
 export class ChartComponent {

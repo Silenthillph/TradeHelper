@@ -29,19 +29,9 @@ export class TradesComponent implements OnInit {
         let $this = this;
         this._tradeService.getAllTrades()
             .then(trades => {
-                $this.trades = trades.json() || {};
+                $this.trades = <Array<ITradeInfo>>trades || [];
             },
             error => { console.log(error); });
-    }
-
-    calculateProfit(trade: ITradeInfo): number {
-        let result: number = 0;
-        if (trade.Status == Enums.PositionStatus.Closed) {
-            result = trade.Type == Enums.PositionType.Long
-                ? (trade.Amount * (trade.CellPrice - trade.BuyPrice))
-                : (trade.Amount * (trade.BuyPrice - trade.CellPrice));
-        }
-        return result;
     }
 
     addTrade(modalSelector: any): void {

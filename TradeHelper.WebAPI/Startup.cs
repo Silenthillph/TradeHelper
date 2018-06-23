@@ -22,6 +22,7 @@ namespace TradeHelper.WebApi
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
+            services.AddCors();
             services.AddMvc();
             services.AddTradeHelperDbContext(connectionString);
             services.AddUnitOfWork();
@@ -46,6 +47,7 @@ namespace TradeHelper.WebApi
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
             app.UseMvc();
             app.UseStaticFiles();  
         }

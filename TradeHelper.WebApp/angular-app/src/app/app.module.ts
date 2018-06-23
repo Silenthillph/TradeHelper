@@ -6,14 +6,18 @@ import { AppComponent } from './startup/app.component';
 import { TradeService } from './service/trade.service';
 import { AppRoutingModule } from './startup/app-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { TradesComponent } from './components/trades/trades.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent, 
-    TradesComponent    
+    TradesComponent,
+    SettingsComponent,
+    ProfileComponent    
   ],
   imports: [
     BrowserModule,

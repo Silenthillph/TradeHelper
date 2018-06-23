@@ -3,24 +3,24 @@
         <div class="pb-10">
             <button class="button-3d green" (click)="addTrade(modal)">Add</button>
         </div>
-        <table class='table table-dark' *ngIf='trades && trades.length'>
+        <table class='table' *ngIf='trades && trades.length'>
             <thead>
             <tr>
                 <th>Pair</th>
                 <th>Amount</th>
                 <th>Buy</th>
                 <th>Cell</th>
-                <th>Profit</th>
+                <th>Profit(%)</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let trade of trades">
-                <td>{{ trade.PairCode}}</td>
-                <td>{{ trade.Amount    }}</td>
-                <td>{{ trade.BuyPrice  }}</td>
-                <td>{{ trade.CellPrice }}</td>
-                <td>{{ calculateProfit(trade) }}</td>
+                <td>{{trade.pairCode}}</td>
+                <td>{{trade.amount}}</td>
+                <td>{{trade.buyPrice}}</td>
+                <td>{{trade.cellPrice}}</td>
+                <td>{{trade.summary | number }}</td>
                 <td>
                     <button title="Edit" class="button-3d green" (click)="editTrade(trade)">Edit</button>
                     <button title="Delete" class="button-3d red" (click)="deleteTrade(trade)">Delete</button>

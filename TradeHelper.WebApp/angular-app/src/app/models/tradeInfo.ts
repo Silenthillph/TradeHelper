@@ -1,13 +1,14 @@
 ﻿import { Enums } from "../common/enums" 
 
 export interface ITradeInfo {
-    Id: string;
-    PairCode: string;
-    Amount: number;
-    BuyPrice: number;
-    CellPrice: number;
-    StartDate: Date;
-    CloseDate: Date;
-    Status: Enums.PositionStatus;
-    Type: Enums.PositionType;
+    id: string;
+    pairCode: string;
+    amount: number;
+    buyPrice: number;
+    cellPrice: number;
+    startDate: Date;
+    closeDate: Date;
+    status: Enums.PositionStatus;
+    type: Enums.PositionType;
+    summary: number;
 }

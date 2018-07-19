@@ -263,3 +263,7 @@ __pycache__/
 **/TradeHelper/app/**/*.js
 TradeHelper/app/**/*.map" 
 
+/TradeHelper.WebApp/angular-app/src/assets/image/trash-icon.png
+/TradeHelper.WebApp/angular-app/src/assets/image/trash-icon.jpg
+/TradeHelper.WebApp/angular-app/src/assets/image/favicon.ico
+/TradeHelper.WebApp/angular-app/src/assets/image/edit.jpg

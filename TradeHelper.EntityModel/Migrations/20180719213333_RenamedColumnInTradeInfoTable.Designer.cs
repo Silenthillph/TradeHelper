@@ -11,9 +11,10 @@ using TradeHelper.EntityModel;
 namespace TradeHelper.EntityModel.Migrations
 {
     [DbContext(typeof(TradeHelperContext))]
-    partial class TradeHelperContextModelSnapshot : ModelSnapshot
+    [Migration("20180719213333_RenamedColumnInTradeInfoTable")]
+    partial class RenamedColumnInTradeInfoTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,31 +1,131 @@
-﻿<div>
+﻿<div class='card mb-3'>
+    <div class="card-header">
+        <p>Personal trades</p>
+    </div>
     <div class='table-responsive'>
-        <div class="pb-10">
-            <button class="button-3d green" (click)="addTrade(modal)">Add</button>
-        </div>
-        <table class='table' *ngIf='trades && trades.length'>
+        <table class='table table-striped' *ngIf='trades && trades.length'>
             <thead>
-            <tr>
-                <th>Pair</th>
-                <th>Amount</th>
-                <th>Buy</th>
-                <th>Cell</th>
-                <th>Profit(%)</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>Type</th>
+                    <th>Pair</th>
+                    <th>Amount</th>
+                    <th>Buy Price</th>
+                    <th>Sell Price</th>
+                    <th>Profit(%)</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let trade of trades">
-                <td>{{trade.pairCode}}</td>
-                <td>{{trade.amount}}</td>
-                <td>{{trade.buyPrice}}</td>
-                <td>{{trade.cellPrice}}</td>
-                <td>{{trade.summary | number }}</td>
-                <td>
-                    <button title="Edit" class="button-3d green" (click)="editTrade(trade)">Edit</button>
-                    <button title="Delete" class="button-3d red" (click)="deleteTrade(trade)">Delete</button>
-                </td>
-            </tr>
+                <tr *ngFor="let trade of trades">
+                    <td>
+                        <div *ngIf="!editEnabled(trade.id)">
+                            {{ getPositionType(trade) }}
+                        </div>
+                        <!-- <input *ngIf="editEnabled(trade.id)" class="form-control" type="text" [(ngModel)]="activeTrade.pairCode" /> -->
+                        <select *ngIf="editEnabled(trade.id)" [(ngModel)]="activeTrade.type" class="form-control" ng-options="obj.value as obj.key for obj in Enums.PositionStatus">
+                                <option value="1">Long</option>
+                                <option value="2">Short</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div *ngIf="!editEnabled(trade.id)">
+                            {{trade.pairCode}}
+                        </div>
+                        <input *ngIf="editEnabled(trade.id)" class="form-control" type="text" [(ngModel)]="activeTrade.pairCode" />
+                    </td>
+                    <td>
+                        <div *ngIf="!editEnabled(trade.id)">
+                            {{trade.amount}}
+                        </div>
+                        <input *ngIf="editEnabled(trade.id)" class="form-control" type="number" [(ngModel)]="activeTrade.amount" />
+                    </td>
+                    <td>
+                        <div *ngIf="!editEnabled(trade.id)">
+                            {{trade.buyPrice}}
+                        </div>
+                        <input *ngIf="editEnabled(trade.id)" class="form-control" type="number" [(ngModel)]="activeTrade.buyPrice" />
+                    </td>
+                    <td>
+                        <div *ngIf="!editEnabled(trade.id)">
+                            {{trade.sellPrice}}
+                        </div>
+                        <input *ngIf="editEnabled(trade.id)" class="form-control" type="number" [(ngModel)]="activeTrade.sellPrice" />
+                    </td>
+                    <td>
+                        <span>{{ calculateProfit(trade) | number }}</span>
+                    </td>
+                    <td>
+                        <td>
+                            <div class="btn-group btn-group-toggle">
+                                <label *ngIf="!editEnabled(trade.id)" class="btn-secondary" ngbButtonLabel>
+                                    <input type="checkbox" ngbButton (click)="editTrade(trade)">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    <!-- <span class="btn-label">Edit</span> -->
+                                </label>
+                                <label *ngIf="editEnabled(trade.id)" class="btn-success" ngbButtonLabel>
+                                    <input type="checkbox" ngbButton (click)="saveTrade(activeTrade)">
+                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                    <!-- <span class="btn-label">Save</span> -->
+                                </label>
+                                <label *ngIf="editEnabled(trade.id)" class="btn-danger" ngbButtonLabel>
+                                    <input type="checkbox" ngbButton (click)="cancelEdit()">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                    <!-- <span class="btn-label">Cancel</span> -->
+                                </label>
+                                <label *ngIf="!editEnabled(trade.id)" class="btn-danger" ngbButtonLabel>
+                                    <input type="checkbox" ngbButton (click)="deleteTrade(trade)">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    <!-- <span class="btn-label">Delete</span> -->
+                                </label>
+                            </div>
+                        </td>
+                </tr>
+                <tr *ngIf="addEnabled()">
+                    <td>
+                        <select [(ngModel)]="activeTrade.type" class="form-control" ng-options="obj.value as obj.key for obj in Enums.PositionStatus">
+                            <option value="1">Long</option>
+                            <option value="2">Short</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" [(ngModel)]="activeTrade.pairCode" />
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" [(ngModel)]="activeTrade.amount" />
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" [(ngModel)]="activeTrade.buyPrice" />
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" [(ngModel)]="activeTrade.sellPrice" />
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <td>
+                            <div class="btn-group btn-group-toggle">
+                                <label class="btn-success" ngbButtonLabel>
+                                    <input type="checkbox" ngbButton (click)="saveTrade(activeTrade)">
+                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                    <!-- <span class="btn-label">Save</span> -->
+                                </label>
+                                <label class="btn-danger" ngbButtonLabel>
+                                    <input type="checkbox" ngbButton (click)="cancelAdd()">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                    <!-- <span class="btn-label">Cancel</span> -->
+                                </label>
+                            </div>
+                        </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="addTrade()">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            <span class="btn-label">Add trade</span>
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <div>
@@ -33,8 +133,25 @@
     </div>
 </div>
 
-<ng-template #modal>
-    <div class="mc-wrapper">
-        <h1>Yo bitches from modal</h1>
+
+<ng-template #editModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Profile update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="tradeItem.pairCode" [ngModelOptions]="{standalone: true}" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="submit()">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="cancel()">Cancel</button>
     </div>
 </ng-template>

@@ -1,5 +1,5 @@
 ﻿import { Component, Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ITradeInfo } from '../models/tradeInfo';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { ITradeInfo } from '../models/tradeInfo';
 
 export class TradeService {
     constructor(private _http: HttpClient) {
-        this.apiBaseUrl = 'http://localhost:49820'; // TODO: Set it from build configuration (dev/prod)
+        this.apiBaseUrl = 'http://localhost:49820/'; // TODO: Set it from build configuration (dev/prod)
     }
     
     private apiBaseUrl: string;
@@ -18,8 +18,11 @@ export class TradeService {
     }
 
     addOrUpdateTrade(trade: ITradeInfo): Promise<any> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.post(`${this.apiBaseUrl}/api/trade/addOrUpdateTrade`, trade).toPromise();
+        let headers = new HttpHeaders();
+        headers = headers.set("Content-Type", "application/json").set("Access-Control-Allow-Origin", "*");
+        return this._http.post(`${this.apiBaseUrl}api/trade/addOrUpdateTrade`, trade, { 
+            headers: headers
+        }).toPromise();
     }
 
     getAllTrades(): Promise<any> {

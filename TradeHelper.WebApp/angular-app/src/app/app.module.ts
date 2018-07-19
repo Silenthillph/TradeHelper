@@ -10,6 +10,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { TradesComponent } from './components/trades/trades.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './components/profile/profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     BrowserModule,
     HttpModule,
     HttpClientModule,
-    AppRoutingModule,   
+    AppRoutingModule,
+    FormsModule,   
     NgbModule.forRoot()
   ],
   providers: [],

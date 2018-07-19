@@ -11,8 +11,7 @@ namespace TradeHelper.WebApi.Mappings.Auto
         {
             this.CreateMap<TradeInfo, TradeInfoModel>()
                 .ForMember(e => e.Status, src => src.MapFrom(s => (PositionStatus)s.Status))
-                .ForMember(e => e.Type, src => src.MapFrom(s => (PositionType)s.PositionType))
-                .ForMember(e => e.Summary, src => src.Ignore());                          
+                .ForMember(e => e.Type, src => src.MapFrom(s => (PositionType)s.PositionType));                       
         }
     }
 }

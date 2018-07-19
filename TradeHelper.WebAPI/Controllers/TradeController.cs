@@ -31,7 +31,7 @@ namespace TradeHelper.WebApi.Controllers
             return response;
         }
        
-        [HttpPost]
+        [HttpPost("addOrUpdateTrade")]
         public async Task<HttpResponseMessage> AddOrUpdateTrade([FromBody]TradeInfoModel trade)
         {
 

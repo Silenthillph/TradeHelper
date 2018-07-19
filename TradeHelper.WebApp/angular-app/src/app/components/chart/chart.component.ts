@@ -1,13 +1,13 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { TradeService } from '../../service/trade.service';
 
 declare const TradingView: any;
 
 @Component({
-    selector: "app-tradingview-chart",
+    selector: 'app-tradingview-chart',
     templateUrl: "app/components/chart/chart.component.html"
 })
-export class ChartComponent {
+export class ChartComponent implements OnInit {
     currencyOptions: Array<any>;
     activeCurrency: any;
 

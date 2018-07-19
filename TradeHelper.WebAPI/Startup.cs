@@ -47,7 +47,7 @@ namespace TradeHelper.WebApi
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
             app.UseMvc();
             app.UseStaticFiles();  
         }

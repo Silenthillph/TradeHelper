@@ -8,7 +8,7 @@
         Closed = 2
     }
 
-    export enum CrudOperation {
+    export enum SubmitFormState {
         None = 0,
         Create = 1,
         Update = 2,

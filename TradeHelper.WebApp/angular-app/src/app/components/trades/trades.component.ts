@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
 import { NgbModule, NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TradeService } from '../../service/trade.service';
+import { BitfinexApi } from '../../service/bitfinex.service'
 import { TradeInfo } from "../../models/tradeInfo";
 import { Enums } from "../../common/enums";
 import { Utils } from "../../common/utils"
@@ -13,17 +14,17 @@ import { forEach } from '@angular/router/src/utils/collection';
 
 export class TradesComponent implements OnInit {
 
-    constructor(private _tradeService: TradeService, private _modalService: NgbModal) {
+    constructor(private _tradeService: TradeService, private _bitfinexApi: BitfinexApi, private _modalService: NgbModal) {
 
     }
 
-    crudAction: Enums.CrudOperation;
+    submitAction: Enums.SubmitFormState;
     trades: Array<TradeInfo>;
     activeTrade: TradeInfo = new TradeInfo();
     dataTableTrades: Array<{ string, bool }>
 
     ngOnInit() {
-        this.crudAction = Enums.CrudOperation.None;
+        this.submitAction = Enums.SubmitFormState.None;
         this.load();
     }
 
@@ -43,63 +44,92 @@ export class TradesComponent implements OnInit {
         });
     }
 
-    editTrade(tradeItem: TradeInfo) {
-        this.crudAction = Enums.CrudOperation.Update;
+    startEdit(tradeItem: TradeInfo) {
+        this.submitAction = Enums.SubmitFormState.Update;
         this.activeTrade = new TradeInfo(tradeItem);
         this.dataTableTrades[tradeItem.id] = true;
     }
 
+    refreshTicker() {
+        if (this.trades.length > 0) {
+            this.trades.forEach(tradeItem => {
+                this._bitfinexApi.getTicker(tradeItem.pairCode).then(btfnxResult => {
+                    let tickerDto = btfnxResult;
+                    if (tradeItem.status = Enums.PositionStatus.Closed) {
+                        let profit = this.calculateProfit(tradeItem);
+                        let usdProfit = this.calculateSize(tradeItem) * profit;
+                        tradeItem.summary = `${(profit).toFixed(1)}% (${((usdProfit * profit) / 100).toFixed(1)}$) `
+                    }
+                });
+            });
+        }
+    }
+
     cancelEdit() {
-        this.crudAction = Enums.CrudOperation.None;
+        this.submitAction = Enums.SubmitFormState.None;
         this.activeTrade = new TradeInfo();
     }
 
     deleteTrade(tradeItem: TradeInfo): void {
-        this.crudAction = Enums.CrudOperation.Delete;
+        this.submitAction = Enums.SubmitFormState.Delete;
+        let $this = this;
+        this._tradeService.deleteTrade(tradeItem.id).then(res => {
+            let index = $this.trades.indexOf(tradeItem);
+            $this.trades.splice(index, 1);
+        });
     }
 
-    saveTrade(tradeItem: TradeInfo) {
-        if (this.crudAction == Enums.CrudOperation.Create) {
-            this.activeTrade.id = Utils.getNewGUID();
-        }
+    addOrUpdate() {
         let $this = this;
-        this._tradeService.addOrUpdateTrade(this.activeTrade).then(() => {        
-            if ($this.crudAction == Enums.CrudOperation.Create) {
-                $this.trades.push(new TradeInfo($this.activeTrade));
-            }        
-            $this.crudAction = Enums.CrudOperation.None;
+        this._tradeService.addOrUpdateTrade(this.activeTrade).subscribe(result => {
+            let tradeItem = <TradeInfo>$this.activeTrade;
+            if ($this.submitAction == Enums.SubmitFormState.Create) {
+                tradeItem.id = result;
+                $this.trades.push(tradeItem);
+            } else {
+                $this.trades.forEach(t => {
+                    if (t.id == tradeItem.id) {
+                        let index = $this.trades.indexOf(t);
+                        $this.trades[index] = tradeItem;
+                    }
+                });
+            }
+            $this.submitAction = Enums.SubmitFormState.None;
             $this.dataTableTrades[tradeItem.id] = false;
-        },
-            error => { console.log(error); });
+            this.activeTrade = new TradeInfo();
+        });
     }
 
     editEnabled(id: string) {
-        return this.dataTableTrades[id] && this.crudAction == Enums.CrudOperation.Update;
+        return this.dataTableTrades[id] && this.submitAction == Enums.SubmitFormState.Update;
     }
 
     addEnabled(): boolean {
-        return this.crudAction == Enums.CrudOperation.Create;
+        return this.submitAction == Enums.SubmitFormState.Create;
     }
 
     addTrade(): void {
-        this.crudAction = Enums.CrudOperation.Create;
+        this.submitAction = Enums.SubmitFormState.Create;
     }
 
     cancelAdd(): void {
-        this.crudAction = Enums.CrudOperation.None;
+        this.submitAction = Enums.SubmitFormState.None;
     }
 
     calculateProfit(tradeItem: TradeInfo) {
-        if (tradeItem.status == Enums.PositionStatus.Closed) {
-            if (tradeItem.type == Enums.PositionType.Long) {
-                return ((tradeItem.amount * tradeItem.buyPrice - tradeItem.amount * tradeItem.sellPrice) / (tradeItem.amount * tradeItem.buyPrice)) * 100;
-            }
-            else {
-                return ((tradeItem.amount * tradeItem.sellPrice - tradeItem.amount * tradeItem.buyPrice) / (tradeItem.amount * tradeItem.sellPrice)) * 100;
-            }
-        } else {
-            return -1;
-        }
+        return tradeItem.status == Enums.PositionStatus.Closed
+            ? (tradeItem.type == Enums.PositionType.Long
+                ? ((tradeItem.amount * tradeItem.sellPrice - tradeItem.amount * tradeItem.buyPrice) / (tradeItem.amount * tradeItem.buyPrice)) * 100
+                : ((tradeItem.amount * tradeItem.buyPrice - tradeItem.amount * tradeItem.sellPrice) / (tradeItem.amount * tradeItem.sellPrice)) * 100)
+            : 0;
+    }
+
+    calculateSize(tradeItem: TradeInfo) {
+        return tradeItem.status == Enums.PositionStatus.Closed ?
+            tradeItem.type == Enums.PositionType.Long
+                ? tradeItem.amount * tradeItem.buyPrice
+                : tradeItem.amount * tradeItem.sellPrice
+            : 0;
     }
 
     getPositionType(tradeItem: TradeInfo) {

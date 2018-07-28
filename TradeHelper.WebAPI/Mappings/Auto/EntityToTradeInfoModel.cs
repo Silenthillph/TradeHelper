@@ -9,7 +9,7 @@ namespace TradeHelper.WebApi.Mappings.Auto
     {
         public EntityToTradeInfoModel()
         {
-            this.CreateMap<TradeInfo, TradeInfoModel>()
+            this.CreateMap<TradeInfo, TradeInfoDto>()
                 .ForMember(e => e.Status, src => src.MapFrom(s => (PositionStatus)s.Status))
                 .ForMember(e => e.Type, src => src.MapFrom(s => (PositionType)s.PositionType));                       
         }

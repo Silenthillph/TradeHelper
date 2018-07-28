@@ -11,7 +11,7 @@ namespace TradeHelper.WebApi.Core.Configurations
             string connectionString)
         {
             services.AddDbContext<TradeHelperContext>(options => options.UseSqlServer(connectionString)
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll));
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
         }
 
         public static void AddUnitOfWork(this IServiceCollection services)

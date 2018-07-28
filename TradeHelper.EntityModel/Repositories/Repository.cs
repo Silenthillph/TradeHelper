@@ -95,7 +95,7 @@ namespace TradeHelper.EntityModel.Repositories
 
         public virtual void Update(T entity)
         {
-            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public IQueryable<T> Include(string path)

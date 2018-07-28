@@ -2,6 +2,12 @@
     <div class="card-header">
         <p>Personal trades</p>
     </div>
+    <div class="btn-group btn-group-toggle">
+        <label class="btn-success" ngbButtonLabel>
+            <input type="checkbox" ngbButton (click)="refreshTicker()">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+        </label>
+    </div>
     <div class='table-responsive'>
         <table class='table table-striped' *ngIf='trades && trades.length'>
             <thead>
@@ -52,18 +58,18 @@
                         <input *ngIf="editEnabled(trade.id)" class="form-control" type="number" [(ngModel)]="activeTrade.sellPrice" />
                     </td>
                     <td>
-                        <span>{{ calculateProfit(trade) | number }}</span>
+                        <span>{{ trade.summary }}</span>
                     </td>
                     <td>
                         <td>
                             <div class="btn-group btn-group-toggle">
                                 <label *ngIf="!editEnabled(trade.id)" class="btn-secondary" ngbButtonLabel>
-                                    <input type="checkbox" ngbButton (click)="editTrade(trade)">
+                                    <input type="checkbox" ngbButton (click)="startEdit(trade)">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     <!-- <span class="btn-label">Edit</span> -->
                                 </label>
                                 <label *ngIf="editEnabled(trade.id)" class="btn-success" ngbButtonLabel>
-                                    <input type="checkbox" ngbButton (click)="saveTrade(activeTrade)">
+                                    <input type="checkbox" ngbButton (click)="addOrUpdate()">
                                     <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                     <!-- <span class="btn-label">Save</span> -->
                                 </label>
@@ -106,7 +112,7 @@
                         <td>
                             <div class="btn-group btn-group-toggle">
                                 <label class="btn-success" ngbButtonLabel>
-                                    <input type="checkbox" ngbButton (click)="saveTrade(activeTrade)">
+                                    <input type="checkbox" ngbButton (click)="addOrUpdate()">
                                     <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                     <!-- <span class="btn-label">Save</span> -->
                                 </label>

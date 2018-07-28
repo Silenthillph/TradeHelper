@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TradeHelper.EntityModel.Entities;
 
 namespace TradeHelper.EntityModel
@@ -43,6 +44,11 @@ namespace TradeHelper.EntityModel
             throw new NotImplementedException();
         }
 
-        #endregion 
+        EntityEntry IDbContext.Entry<T>(T entity)
+        {
+            return base.Entry(entity);
+        }
+
+        #endregion
     }
 }

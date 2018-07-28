@@ -22,7 +22,7 @@ namespace TradeHelper.WebApi
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddCors();
+            //services.AddCors();
             services.AddMvc();
             services.AddTradeHelperDbContext(connectionString);
             services.AddUnitOfWork();
@@ -47,9 +47,15 @@ namespace TradeHelper.WebApi
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+            });
             app.UseMvc();
-            app.UseStaticFiles();  
+            app.UseStaticFiles();
         }
     }
 }

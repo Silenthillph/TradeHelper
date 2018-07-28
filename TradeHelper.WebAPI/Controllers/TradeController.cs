@@ -24,29 +24,24 @@ namespace TradeHelper.WebApi.Controllers
 
         [HttpGet]
         [Route("getalltrades")]
-        public async Task<IEnumerable<TradeInfoModel>> GetAllTrades()
+        public async Task<IEnumerable<TradeInfoDto>> GetAllTrades()
         {
             IEnumerable<TradeInfo> trades = await this._tradeManager.GetAllTrades();
-            IEnumerable<TradeInfoModel> response = AutoMapper.Mapper.Map<IEnumerable<TradeInfoModel>>(trades);
+            IEnumerable<TradeInfoDto> response = AutoMapper.Mapper.Map<IEnumerable<TradeInfoDto>>(trades);
             return response;
         }
-       
+      
         [HttpPost("addOrUpdateTrade")]
-        public async Task<HttpResponseMessage> AddOrUpdateTrade([FromBody]TradeInfoModel trade)
+        public async Task<Guid> AddOrUpdateTrade([FromBody]TradeInfoDto trade)
         {
-
-            TradeInfo tradeInfo = await _tradeManager.AddOrUpdate(AutoMapper.Mapper.Map<TradeInfo>(trade));
-            if (tradeInfo != null)
-            {
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            }
-            return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            var entityItem = await _tradeManager.AddOrUpdate(AutoMapper.Mapper.Map<TradeInfo>(trade));
+            return entityItem.Id;
         }
 
-        [HttpDelete]
-        public async Task<HttpResponseMessage> RemoveTradeItems([FromRoute] List<Guid> items)
+        [HttpDelete("remove/{id}")]
+        public async Task<HttpResponseMessage> RemoveTradeItems([FromRoute] Guid id)
         {
-            bool success = await _tradeManager.Remove(items);
+            bool success = await _tradeManager.Remove(new List<Guid> { id });
             if (success)
             {
                 return new HttpResponseMessage(HttpStatusCode.OK);

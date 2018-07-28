@@ -1,14 +1,13 @@
 ﻿using System;
 using TradeHelper.BLL.Common;
-using TradeHelper.BLL.Utilities;
 
 namespace TradeHelper.WebApi.Models
 {
-    public class TradeInfoModel
+    public class TradeInfoDto
     {
-        public TradeInfoModel(){}
+        public TradeInfoDto(){}
 
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string PairCode { get; set; }
         public decimal Amount { get; set; }
         public decimal? BuyPrice { get; set; }

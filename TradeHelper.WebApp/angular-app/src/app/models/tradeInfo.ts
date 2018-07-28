@@ -36,7 +36,9 @@ export class TradeInfo implements ITradeInfo {
     sellPrice: number;
     startDate: Date;
     closeDate: Date;
-    status: Enums.PositionStatus;
+    status: Enums.PositionStatus = Enums.PositionStatus.Open;
     type: Enums.PositionType;
-    
+    usdSize: number;
+    summary: string;
+    currentStatus: string;
 }
